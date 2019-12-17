@@ -195,4 +195,4 @@ function chooseAns(event){
 }
 
 strtQuizEl.addEventListener("click", showQandA);
-highScoreEl.addEventListener("click",storeHS);
+highScoreEl.addEventListener("click",renderHS);
