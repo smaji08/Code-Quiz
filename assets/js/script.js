@@ -147,10 +147,10 @@ function navigate(index){
     ol.setAttribute("id", "choices");
     qandaEl.appendChild(ol);
     
-    for (j=0;j<questions[index].choices.length;j++){
+    for (var j=0;j<questions[index].choices.length;j++){
         var li = document.createElement("li");
         li.setAttribute("data-index",j);
-        li.textContent = questions[index].choices[j];;
+        li.textContent = j+1 + "."+ questions[index].choices[j];
         ol.appendChild(li);
     }
     chooseAns();
@@ -166,18 +166,23 @@ function chooseAns(event){
         event.preventDefault();
        
         var hr = document.createElement("hr");
+        hr.setAttribute("style","clear:both;");
         var p = document.createElement("p");
         qandaEl.appendChild(hr);
         qandaEl.appendChild(p);
+
+        var userChoice = event.target.textContent;
+        userChoice = userChoice.slice(2);
         
-        if (event.target.textContent === questions[qIndex].answer){
-            p.setAttribute("style", "color:green; font-size: 1.5em;");
+        // if (event.target.textContent === questions[qIndex].answer){
+        if (userChoice === questions[qIndex].answer){
+            p.setAttribute("style", "color:green; font-size: 1.5em; clear:both;");
             p.textContent = "Correct!";
             // score =  secondsElapsed;
             // alert(score);
         }
         else{
-            p.setAttribute("style", "color:red; font-size: 1.5em;");
+            p.setAttribute("style", "color:red; font-size: 1.5em; clear:both;");
             p.textContent = "Wrong !!!";
             secondsElapsed = secondsElapsed-10;
             if(secondsElapsed<0){

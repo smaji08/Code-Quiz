@@ -13,10 +13,9 @@
 ol {
     /* list-style-type: none; */
     padding-left: 25px;
-    background-color: white;
   }
 
-  li {
+  /* li {
     height: 50px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -26,6 +25,24 @@ ol {
     font-size: 1.5em;
     line-height: 1.5;
     cursor: pointer;
+  } */
+
+  li {
+    font-family: sans-serif;
+    background-color:rgb(161, 25, 224);
+    color:white;
+    font-size: 1.5em;
+    float: left;
+    clear: both;
+    padding: 3px;
+    margin: 10px;
+    border-radius: 5px;
+    list-style-type: none;
+    cursor: pointer;
+  }
+
+  li:hover{
+    background-color:rgb(85, 4, 122) ;
   }
 
   
