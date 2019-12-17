@@ -6,11 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Augustine's Code-Quiz</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css"/>
     
 </head>
 <body>
-    <nav class="navbar sticky-top navbar-light bg-light">
+    <audio id="correctAnswer">
+        <source src="./assets/audio/Correct-Answer.mp3" />
+    </audio>
+    <audio id="wrongAnswer">
+        <source src="./assets/audio/Wrong-Answer.wav" />
+    </audio>
+    <nav class="navbar sticky-top navbar-light bg-light" id= "nav-bar">
         <a id="highscore" href="#"><h4>View Highscores</h4></a>
         <div class="navitem d-inline-flex px-5" >
             <h4>Time: <span id="timer">0</span></h4>
@@ -21,7 +28,7 @@
         <h3>Coding Quiz challenge</h3><br>
         <p> Try to answer the following code-related questions within the time limit.
             Keep in mind that every wrond answer will penalize your score/time by
-            15 seconds!
+            10 seconds!
         </p>
         <p><b>All the Best!!</b></p>
         <div class="row">

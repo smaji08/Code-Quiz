@@ -2,6 +2,8 @@ var qandaEl = document.querySelector("#qanda");
 var strtQuizEl = document.querySelector("#strt-quiz");
 var timerEl = document.querySelector("#timer");
 var highScoreEl = document.querySelector("#highscore");
+var navbarEl = document.querySelector("#nav-bar");
+var bodyEl = document.body;
 
 var secondsElapsed;
 var score = 0;
@@ -87,32 +89,33 @@ function storeHS(event){
 function renderHS(){
     var userscore = JSON.parse(localStorage.getItem("user"));
 
-    qandaEl.innerHTML = ""; 
-
+    bodyEl.innerHTML ="";
+    // qandaEl.innerHTML = ""; 
+    bodyEl.setAttribute("style","max-width:500px;margin:auto;margin-top:100px;")
     var p = document.createElement("p");
     p.textContent = "Highscores";
     p.setAttribute("style","font-size:40px; font-weight:700; text-align:left");
-    qandaEl.appendChild(p);
+    bodyEl.appendChild(p);
 
     var p1 = document.createElement("p");
     p1.setAttribute("id","high-score");
     p1.setAttribute("style","background-color:lightgray;text-align:left");
     p1.innerHTML = "<strong>" + userscore.name + ' - ' + userscore.Hscore + "</strong>";
-    qandaEl.appendChild(p1);
+    bodyEl.appendChild(p1);
 
     var goBackBtn = document.createElement("button");
     goBackBtn.setAttribute("type","submit");
     goBackBtn.setAttribute("style","background-color: rgb(82, 4, 155);color: white;");
     goBackBtn.textContent = "Go Back";
     goBackBtn.addEventListener("click",function(){location.reload()});
-    qandaEl.appendChild(goBackBtn);
+    bodyEl.appendChild(goBackBtn);
 
     var clearHSBtn = document.createElement("button");
     clearHSBtn.setAttribute("type","submit");
     clearHSBtn.setAttribute("style","background-color: rgb(82, 4, 155);color: white; margin-left:10px;");
     clearHSBtn.textContent = "Clear Highscores";
     clearHSBtn.addEventListener("click",delHS);
-    qandaEl.append(clearHSBtn);
+    bodyEl.append(clearHSBtn);
 }
 
 function delHS(){
@@ -124,27 +127,25 @@ function delHS(){
 
 function showQandA(){
     startTimer();
-    for (var i=0;i<questions.length;i++){
-        navigate(i);
-    }
+    navigate(0);
 }
 
 function navigate(index){
     qandaEl.innerHTML = "";
 
     if (index >= questions.length){
-        // alert(score);
         stopTimer();
     }
-
+    
     var p = document.createElement("p");
     p.setAttribute("data-index",index);
-    p.setAttribute("style","font-size:20px; font-weight:700");
-    p.textContent = questions[index].title;
+    p.setAttribute("style","font-size:22px; font-weight:700");
+    p.textContent = index+1 + ") " + questions[index].title;
     qandaEl.appendChild(p);
 
     var ol = document.createElement("ol");
     ol.setAttribute("id", "choices");
+    ol.addEventListener("click",chooseAns);
     qandaEl.appendChild(ol);
     
     for (var j=0;j<questions[index].choices.length;j++){
@@ -158,7 +159,6 @@ function navigate(index){
 
 
 function chooseAns(event){
-    // alert("am here in chooseAns");
     var qIndex = event.target.parentElement.previousSibling.getAttribute("data-index");
     qIndex = parseInt(qIndex);
     
@@ -173,27 +173,26 @@ function chooseAns(event){
 
         var userChoice = event.target.textContent;
         userChoice = userChoice.slice(2);
-        
-        // if (event.target.textContent === questions[qIndex].answer){
+                
         if (userChoice === questions[qIndex].answer){
             p.setAttribute("style", "color:green; font-size: 1.5em; clear:both;");
             p.textContent = "Correct!";
-            // score =  secondsElapsed;
-            // alert(score);
+            document.querySelector("#correctAnswer").play();
         }
         else{
             p.setAttribute("style", "color:red; font-size: 1.5em; clear:both;");
             p.textContent = "Wrong !!!";
+            document.querySelector("#wrongAnswer").play();
             secondsElapsed = secondsElapsed-10;
-            if(secondsElapsed<0){
-                secondsElapsed = 0;
-            }
-            
+        }
+
+        if(secondsElapsed<0){
+            secondsElapsed = 0;
+            stopTimer();
         }
         setTimeout(navigate,300,qIndex+1);
     }
 }
 
 strtQuizEl.addEventListener("click", showQandA);
-qandaEl.addEventListener("click",chooseAns);
 highScoreEl.addEventListener("click",storeHS);
