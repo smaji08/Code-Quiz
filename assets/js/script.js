@@ -3,7 +3,6 @@ var strtQuizEl = document.querySelector("#strt-quiz");
 var timerEl = document.querySelector("#timer");
 var highScoreEl = document.querySelector("#highscore");
 var navbarEl = document.querySelector("#nav-bar");
-// var bodyEl = document.body;
 var wrapEl = document.querySelector("#wrapper");
 
 var secondsElapsed;
@@ -26,7 +25,6 @@ function renderTime(){
 }
 
 function stopTimer(){
-    // secondsElapsed = 0;
     qandaEl.innerHTML = "";
     timerEl.textContent = secondsElapsed;
     clearInterval(interval);
@@ -40,29 +38,29 @@ function showQandA(){
 
 function navigate(index){
     qandaEl.innerHTML = "";
+    if (index < questions.length){
+        var p = document.createElement("p");
+        p.setAttribute("data-index",index);
+        p.setAttribute("style","font-size:22px; font-weight:700");
+        p.textContent = index+1 + ") " + questions[index].title;
+        qandaEl.appendChild(p);
 
-    if (index >= questions.length){
+        var ol = document.createElement("ol");
+        ol.setAttribute("id", "choices");
+        ol.addEventListener("click",chooseAns);
+        qandaEl.appendChild(ol);
+        
+        for (var j=0;j<questions[index].choices.length;j++){
+            var li = document.createElement("li");
+            li.setAttribute("data-index",j);
+            li.textContent = j+1 + "."+ questions[index].choices[j];
+            ol.appendChild(li);
+        }
+        onClick = this.chooseAns;
+    }
+    else{ 
         stopTimer();
     }
-    
-    var p = document.createElement("p");
-    p.setAttribute("data-index",index);
-    p.setAttribute("style","font-size:22px; font-weight:700");
-    p.textContent = index+1 + ") " + questions[index].title;
-    qandaEl.appendChild(p);
-
-    var ol = document.createElement("ol");
-    ol.setAttribute("id", "choices");
-    ol.addEventListener("click",chooseAns);
-    qandaEl.appendChild(ol);
-    
-    for (var j=0;j<questions[index].choices.length;j++){
-        var li = document.createElement("li");
-        li.setAttribute("data-index",j);
-        li.textContent = j+1 + "."+ questions[index].choices[j];
-        ol.appendChild(li);
-    }
-    chooseAns();
 }
 
 
@@ -158,7 +156,7 @@ function storeHS(event){
         renderHS();
     }
     else{
-        alert("please enter initials");
+        alert("Please enter initials");
     }
 }
 
