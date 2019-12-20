@@ -35,13 +35,13 @@ function showQandA(){
     startTimer();
     navigate(0);
 }
-
+let x;
 function navigate(index){
     qandaEl.innerHTML = "";
     if (index < questions.length){
         var p = document.createElement("p");
         p.setAttribute("data-index",index);
-        p.setAttribute("style","font-size:22px; font-weight:700");
+        p.setAttribute("style","font-size:22px; font-weight:600; white-space:pre-line;");
         p.textContent = index+1 + ") " + questions[index].title;
         qandaEl.appendChild(p);
 
@@ -53,7 +53,7 @@ function navigate(index){
         for (var j=0;j<questions[index].choices.length;j++){
             var li = document.createElement("li");
             li.setAttribute("data-index",j);
-            li.textContent = j+1 + "."+ questions[index].choices[j];
+            li.textContent = j+1 + ": "+ questions[index].choices[j];
             ol.appendChild(li);
         }
         onClick = this.chooseAns;
@@ -78,7 +78,7 @@ function chooseAns(event){
         qandaEl.appendChild(p);
 
         var userChoice = event.target.textContent;
-        userChoice = userChoice.slice(2);
+        userChoice = userChoice.slice(3);
                 
         if (userChoice === questions[qIndex].answer){
             p.setAttribute("style", "color:green; font-size: 1.5em; clear:both;");
