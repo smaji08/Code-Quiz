@@ -21,7 +21,7 @@ var questions = [
              var x = a.lastIndexOf("u");
              document.write(x);
             </script> `,
-    choices: ["1","0","3","Error"],
+    choices: ["1","3","0","Error"],
     answer: "3"
     
   },

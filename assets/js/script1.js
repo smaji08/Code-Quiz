@@ -1,0 +1,217 @@
+var qandaEl = document.querySelector("#qanda");
+var strtQuizEl = document.querySelector("#strt-quiz");
+var timerEl = document.querySelector("#timer");
+var highScoreEl = document.querySelector("#highscore");
+var navbarEl = document.querySelector("#nav-bar");
+var wrapEl = document.querySelector("#wrapper");
+
+var secondsElapsed;
+var score = 0;
+var user = [];
+
+function startTimer() {
+    secondsElapsed = questions.length * 15;
+    interval = setInterval(function() {
+      secondsElapsed--;
+      renderTime();
+    }, 1000);
+}
+
+function renderTime(){
+    timerEl.textContent = secondsElapsed;
+    if (secondsElapsed === 0) {
+        stopTimer();
+    }
+}
+
+function stopTimer(){
+    qandaEl.innerHTML = "";
+    timerEl.textContent = secondsElapsed;
+    clearInterval(interval);
+    showScore();
+}
+
+function showQandA(){
+    startTimer();
+    navigate(0);
+}
+let x;
+function navigate(index){
+    qandaEl.innerHTML = "";
+    if (index < questions.length){
+        var p = document.createElement("p");
+        p.setAttribute("data-index",index);
+        p.setAttribute("style","font-size:22px; font-weight:600; white-space:pre-line;");
+        p.textContent = index+1 + ") " + questions[index].title;
+        qandaEl.appendChild(p);
+
+        var ol = document.createElement("ol");
+        ol.setAttribute("id", "choices");
+        ol.addEventListener("click",chooseAns);
+        qandaEl.appendChild(ol);
+        
+        for (var j=0;j<questions[index].choices.length;j++){
+            var li = document.createElement("li");
+            li.setAttribute("data-index",j);
+            li.textContent = j+1 + ": "+ questions[index].choices[j];
+            ol.appendChild(li);
+        }
+        onClick = this.chooseAns;
+    }
+    else{ 
+        stopTimer();
+    }
+}
+
+
+function chooseAns(event){
+    var qIndex = event.target.parentElement.previousSibling.getAttribute("data-index");
+    qIndex = parseInt(qIndex);
+    
+    if(event.target.matches("li")){
+        event.preventDefault();
+       
+        var hr = document.createElement("hr");
+        hr.setAttribute("style","clear:both;");
+        var p = document.createElement("p");
+        qandaEl.appendChild(hr);
+        qandaEl.appendChild(p);
+
+        var userChoice = event.target.textContent;
+        userChoice = userChoice.slice(3);
+                
+        if (userChoice === questions[qIndex].answer){
+            p.setAttribute("style", "color:green; font-size: 1.5em; clear:both;");
+            p.textContent = "Correct!";
+            document.querySelector("#correctAnswer").play();
+        }
+        else{
+            p.setAttribute("style", "color:red; font-size: 1.5em; clear:both;");
+            p.textContent = "Wrong !!!";
+            document.querySelector("#wrongAnswer").play();
+            secondsElapsed = secondsElapsed-10;
+        }
+
+        if(secondsElapsed<0){
+            secondsElapsed = 0;
+            stopTimer();
+        }
+        setTimeout(navigate,300,qIndex+1);
+    }
+}
+
+function showScore(){
+    
+    qandaEl.innerHTML = "";
+    var div = document.createElement("div");
+    qandaEl.appendChild(div);
+
+    var pDone = document.createElement("p");
+    pDone.setAttribute("style", "font-size:25px; font-weight:700;");
+    pDone.textContent = "All Done!!";
+
+    var pScore = document.createElement("p");
+    pScore.setAttribute("style","text-align:left");
+    pScore.innerHTML = "Your Final Score is " + "<strong>" + secondsElapsed +"</strong>";
+
+    var form = document.createElement("form");
+    form.setAttribute("id","store");
+    form.setAttribute("method","POST");
+
+    var label = document.createElement("label");
+    label.setAttribute("for","for-initials");
+    label.textContent = "Enter your Initials:";
+
+    var input = document.createElement("input");
+    input.setAttribute("type","text");
+    input.setAttribute("id","for-initials");
+    input.setAttribute("name", "for-initials");
+    input.value="";
+
+    var button = document.createElement("button");
+    button.setAttribute("type", "submit");
+    button.setAttribute("style","background-color: rgb(82, 4, 155);color: white;");
+    button.setAttribute("id","store-hs");
+    button.textContent = "Submit";
+    button.addEventListener("click",storeHS);
+    
+    div.appendChild(pDone);
+    div.appendChild(pScore);
+    div.appendChild(form);
+    form.appendChild(label);
+    form.appendChild(input);
+    form.appendChild(button);
+
+}
+
+function storeHS(event){
+    event.preventDefault();     
+    var initials = event.target.previousSibling.value;
+    var score = secondsElapsed;
+    
+    if(initials!==""){
+        localStorage.setItem("user",JSON.stringify({
+            name : initials, Hscore :score 
+        }));
+        renderHS();
+    }
+    else{
+        alert("Please enter initials");
+    }
+}
+
+function renderHS(){
+    var lsLength = localStorage.length;
+    
+    if(lsLength>0){
+        var userscore = JSON.parse(localStorage.getItem("user"));
+        
+        navbarEl.innerHTML="";
+        document.querySelector("#placeholder-div").innerHTML = "";
+        wrapEl.innerHTML="";
+        
+        var qandaEl = document.createElement("div");
+        qandaEl.setAttribute("class","container");
+        qandaEl.setAttribute("style","max-width:500px;margin:auto;margin-top:25px;")
+        wrapEl.appendChild(qandaEl);
+
+        var p = document.createElement("p");
+        p.textContent = "Highscores";
+        p.setAttribute("style","font-size:40px; font-weight:700; text-align:left");
+        qandaEl.appendChild(p);
+
+        var p1 = document.createElement("p");
+        p1.setAttribute("id","high-score");
+        p1.setAttribute("style","background-color:lightgray;text-align:left");
+        p1.innerHTML = "<strong>" + lsLength +". " + userscore.name + ' - ' + userscore.Hscore + "</strong>";
+        qandaEl.appendChild(p1);
+
+        var goBackBtn = document.createElement("button");
+        goBackBtn.setAttribute("type","submit");
+        goBackBtn.setAttribute("style","background-color: rgb(82, 4, 155);color: white;");
+        goBackBtn.textContent = "Go Back";
+        goBackBtn.addEventListener("click",function(){location.reload()});
+        qandaEl.appendChild(goBackBtn);
+
+        var clearHSBtn = document.createElement("button");
+        clearHSBtn.setAttribute("type","submit");
+        clearHSBtn.setAttribute("style","background-color: rgb(82, 4, 155);color: white; margin-left:10px;");
+        clearHSBtn.textContent = "Clear Highscores";
+        clearHSBtn.addEventListener("click",delHS);
+        qandaEl.append(clearHSBtn);
+    }
+    else{
+        alert("No highscores to show now.. Try your luck noww!!");
+    }
+}
+
+function delHS(){
+    localStorage.clear();
+    document.querySelector("#high-score").textContent = "";
+    timerEl.textContent = 0;
+
+}
+
+
+strtQuizEl.addEventListener("click", showQandA);
+highScoreEl.addEventListener("click",renderHS);
