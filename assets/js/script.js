@@ -8,6 +8,7 @@ var wrapEl = document.querySelector("#wrapper");
 var secondsElapsed;
 var score = 0;
 var user = [];
+var headText = "";
 
 function startTimer() {
     secondsElapsed = questions.length * 15;
@@ -32,10 +33,18 @@ function stopTimer(){
 }
 
 function showQandA(){
+    if (document.querySelector("#JS-Q").checked){
+        questions = questionsJS;
+        headText = "JavaScript";
+    }
+    else {
+        questions = questionsJQuery;
+        headText = "JQuery";
+    }
     startTimer();
     navigate(0);
 }
-let x;
+
 function navigate(index){
     qandaEl.innerHTML = "";
     if (index < questions.length){
@@ -151,7 +160,7 @@ function storeHS(event){
     
     if(initials!==""){
         localStorage.setItem("user",JSON.stringify({
-            name : initials, Hscore :score 
+            name : initials, Hscore :score, topic :headText 
         }));
         renderHS();
     }
@@ -176,7 +185,7 @@ function renderHS(){
         wrapEl.appendChild(qandaEl);
 
         var p = document.createElement("p");
-        p.textContent = "Highscores";
+        p.textContent = "Highscores - " + userscore.topic ;
         p.setAttribute("style","font-size:40px; font-weight:700; text-align:left");
         qandaEl.appendChild(p);
 
@@ -211,7 +220,6 @@ function delHS(){
     timerEl.textContent = 0;
 
 }
-
 
 strtQuizEl.addEventListener("click", showQandA);
 highScoreEl.addEventListener("click",renderHS);
