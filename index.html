@@ -11,12 +11,15 @@
     
 </head>
 <body>
+    <!-- Audio files added *** Bonus -->
     <audio id="correctAnswer">
         <source src="./assets/audio/Correct-Answer.mp3" />
     </audio>
     <audio id="wrongAnswer">
         <source src="./assets/audio/Wrong-Answer.wav" />
     </audio>
+    
+    <!-- The top bar showing Timer and View Highscore link -->
     <nav class="navbar sticky-top navbar-light bg-light" id= "nav-bar">
         <a id="highscore" href="#"><h4>View Highscores</h4></a>
         <div class="navitem d-inline-flex pl-5" >
@@ -24,6 +27,7 @@
         </div>
     </nav>
     
+    <!-- The main <div> which will be changed using DOM API -->
     <div class = "container" id="placeholder-div" style= "height: 75px;"> </div> 
     <div class = "container" id="wrapper" style="max-width: 600px;">
         <div class = "container" id="qanda" style="max-width: 500px;">

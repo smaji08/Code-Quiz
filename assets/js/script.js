@@ -1,3 +1,4 @@
+// The needed DOM elements
 var qandaEl = document.querySelector("#qanda");
 var strtQuizEl = document.querySelector("#strt-quiz");
 var timerEl = document.querySelector("#timer");
@@ -5,33 +6,39 @@ var highScoreEl = document.querySelector("#highscore");
 var navbarEl = document.querySelector("#nav-bar");
 var wrapEl = document.querySelector("#wrapper");
 
-var secondsElapsed;
+// Declaring and initializing the global variables
+var secondsRemaining;
 var score = 0;
 var user = [];
 var headText = "";
 
+// When Start Quiz is clicked timer is started and the seonds are set to 15 seconds * no. of questions
 function startTimer() {
-    secondsElapsed = questions.length * 15;
+    secondsRemaining = questions.length * 15;
     interval = setInterval(function() {
-      secondsElapsed--;
+      secondsRemaining--;
       renderTime();
     }, 1000);
 }
 
+// Diplaying the time in timer element and to stop the times if the seondsRemaining is 0
 function renderTime(){
-    timerEl.textContent = secondsElapsed;
-    if (secondsElapsed === 0) {
+    timerEl.textContent = secondsRemaining;
+    if (secondsRemaining === 0) {
         stopTimer();
     }
 }
 
+// Stop the timer and function called to show the score
 function stopTimer(){
     qandaEl.innerHTML = "";
-    timerEl.textContent = secondsElapsed;
+    timerEl.textContent = secondsRemaining;
     clearInterval(interval);
     showScore();
 }
 
+//Showing the Question and answer coices according to the topic selected and timer is also started
+// The Question and choices are shown carousel model
 function showQandA(){
     if (document.querySelector("#JS-Q").checked){
         questions = questionsJS;
@@ -45,6 +52,8 @@ function showQandA(){
     navigate(0);
 }
 
+// Creating elements dynamically and displaying the question and corresponding answer choices and calling the chooseAns()
+// It is repeated as long as the index of the questions array is less than the length of that array, else stoptimer() is invoked
 function navigate(index){
     qandaEl.innerHTML = "";
     if (index < questions.length){
@@ -72,7 +81,7 @@ function navigate(index){
     }
 }
 
-
+//Here the selected option is checked with the correct answer of the particular question 
 function chooseAns(event){
     var qIndex = event.target.parentElement.previousSibling.getAttribute("data-index");
     qIndex = parseInt(qIndex);
@@ -88,27 +97,33 @@ function chooseAns(event){
 
         var userChoice = event.target.textContent;
         userChoice = userChoice.slice(3);
-                
+        
+        // If the answer is matched with userchoice it will show "correct answer" as well as play the correct answer audio
         if (userChoice === questions[qIndex].answer){
             p.setAttribute("style", "color:green; font-size: 1.5em; clear:both;");
             p.textContent = "Correct!";
             document.querySelector("#correctAnswer").play();
         }
+        // Else it will be shown "wrong answer" and play the wrong answer audio and 10 sec are subtracted from the remaining time
         else{
             p.setAttribute("style", "color:red; font-size: 1.5em; clear:both;");
             p.textContent = "Wrong !!!";
             document.querySelector("#wrongAnswer").play();
-            secondsElapsed = secondsElapsed-10;
+            secondsRemaining = secondsRemaining-10;
         }
 
-        if(secondsElapsed<0){
-            secondsElapsed = 0;
+        if(secondsRemaining<0){
+            secondsRemaining = 0;
             stopTimer();
         }
+        // timeout for 300 microseconds to show and play the audio of correct/wrong answer and 
+        // next slide of question with options called
         setTimeout(navigate,300,qIndex+1);
     }
 }
 
+//The screen elements for showing the scores are created and the score is shown and on clicking the submit button
+//the function to store the score in the local storage is called.
 function showScore(){
     
     qandaEl.innerHTML = "";
@@ -121,7 +136,7 @@ function showScore(){
 
     var pScore = document.createElement("p");
     pScore.setAttribute("style","text-align:left");
-    pScore.innerHTML = "Your Final Score is " + "<strong>" + secondsElapsed +"</strong>";
+    pScore.innerHTML = "Your Final Score is " + "<strong>" + secondsRemaining +"</strong>";
 
     var form = document.createElement("form");
     form.setAttribute("id","store");
@@ -153,10 +168,12 @@ function showScore(){
 
 }
 
+// Here the score along with the name of the user and chosen topic is stored in local storage and the function
+// renderHS() to render the high score from the local storage to the screen is called.
 function storeHS(event){
     event.preventDefault();     
     var initials = event.target.previousSibling.value;
-    var score = secondsElapsed;
+    var score = secondsRemaining;
     
     if(initials!==""){
         localStorage.setItem("user",JSON.stringify({
@@ -169,6 +186,9 @@ function storeHS(event){
     }
 }
 
+// Here the final screen elements are created to show the high score and user name from the local storage
+// two buttons are created -  one to clear the high score from the local storage and one to go back to the initial
+// Start Quiz screen
 function renderHS(){
     var lsLength = localStorage.length;
     
@@ -214,6 +234,7 @@ function renderHS(){
     }
 }
 
+// local storage is cleared here
 function delHS(){
     localStorage.clear();
     document.querySelector("#high-score").textContent = "";
@@ -221,5 +242,6 @@ function delHS(){
 
 }
 
+// Click events for Starting the Quiz and Displaying the High score
 strtQuizEl.addEventListener("click", showQandA);
 highScoreEl.addEventListener("click",renderHS);

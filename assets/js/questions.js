@@ -1,3 +1,4 @@
+// JavaScript Question Array
 var questionsJS = [
   {
     title: "What is the method in JavaScript used to remove the whitespace at the beginning and end of any string?",
@@ -33,6 +34,7 @@ var questionsJS = [
   }
 ];
 
+// Jquery Question Array
 var questionsJQuery = [
   {
     title: "Which of the following is a single global function defined in the jQuery library?",
@@ -61,4 +63,3 @@ var questionsJQuery = [
   answer: "is(selector)"
 }
 ];
-
