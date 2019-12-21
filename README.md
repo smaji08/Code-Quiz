@@ -1,5 +1,5 @@
 # Code-Quiz
-[https://smaji08.github.io/Code-Quiz/]https://smaji08.github.io/Code-Quiz/
+https://smaji08.github.io/Code-Quiz/
 
 This application was developed using Bootstrap 4.3.1, HTML5, CSS3, JavaScript and DOM API.
 
@@ -13,7 +13,7 @@ This is an application to take a timed quiz on JavaScript fundamentals and JQuer
 
     - The user arrives at the landing page and is presented with a call-to-action to "Start Quiz." Also note the navigation option to "View Highscores" and the "Time" value set at 0.
 
-    -The user can choose from 2 different quizes - JavaScript and JQuery.
+    - The user can choose from 2 different quizes - JavaScript and JQuery.
 
 
     - Clicking the "Start Quiz" button presents the user with a series of questions related to the selected topic. The timer is initialized with a value and immediately begins countdown.
@@ -30,7 +30,7 @@ This is an application to take a timed quiz on JavaScript fundamentals and JQuer
     * The Audio files for Correct and Wrong answers added.
     * Multiple Quizes added.
     * Minimum customization done.
-    * Application added to [https://smaji08.github.io/Bootstrap-Portfolio/portfolio.html]https://smaji08.github.io/Bootstrap-Portfolio/portfolio.html
+    * Application added to https://smaji08.github.io/Bootstrap-Portfolio/portfolio.html
 
 ### Credits
 
