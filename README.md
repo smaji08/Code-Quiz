@@ -30,7 +30,10 @@ This is an application to take a timed quiz on JavaScript fundamentals and JQuer
     * The Audio files for Correct and Wrong answers added.
     * Multiple Quizes added.
     * Minimum customization done.
-    * Application added to https://smaji08.github.io/Bootstrap-Portfolio/portfolio.html
+    * Application added to https://smaji08.github.io/Bootstrap-Portfolio/
+
+### My Experience
+
 
 ### Credits
 
