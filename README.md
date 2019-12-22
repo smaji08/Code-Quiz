@@ -27,10 +27,10 @@ This is an application to take a timed quiz on JavaScript fundamentals and JQuer
     - The Clear High Score clears it from the local storage as well.
 
 #### Bonus
-    - The Audio files for Correct and Wrong answers added.
-    - Multiple Quizes added.
-    - Minimum customization done.
-    - Application added to https://smaji08.github.io/Bootstrap-Portfolio/
+   - The Audio files for Correct and Wrong answers added.
+   - Multiple Quizes added.
+   - Minimum customization done.
+   - Application added to https://smaji08.github.io/Bootstrap-Portfolio/
 
 ### My Experience
 My approach to this application was first to print the array of questions and corresponding answer choices. I used the carousel method for that naavigating one from next. The next was to check the user selected answer with the correct answer stored in the question array. I achieved this creating data-index for question and matching the same with the question in the array which was a challenge initially and adding click event for the user choice and matching it with the user answer.
@@ -39,7 +39,7 @@ The timer is set to set the countdown and after the user finshes all the questio
 
 As bonus, the user has the option to select 2 different quizes and audio was also added when  the user chooses correct answer and a different audio sound for wrong answer.
 
-The application is added to my portfolio application https://smaji08.github.io/Bootstrap-Portfolio/
+The application is added to my portfolio application https://smaji08.github.io/Bootstrap-Portfolio/portfolio.html
 
 ### Credits
 
