@@ -2,13 +2,18 @@
   font-family: 'Libre Franklin', sans-serif;
 }
 
+body{
+  background: url("../images/blur.jpg");
+  background-size: cover;
+}
+
 #qanda > h3,p{
     text-align: center;
    
 }
 
 .form-check-label{
-  color: blueviolet;
+  color:maroon;
   font-size: 18px;
   font-weight: 600;
 }
