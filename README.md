@@ -1,5 +1,7 @@
 # Code-Quiz
-https://smaji08.github.io/Code-Quiz/
+Deployed app: https://smaji08.github.io/Code-Quiz/
+
+GitHub repo: https://github.com/smaji08/Code-Quiz
 
 This application was developed using Bootstrap 4.3.1, HTML5, CSS3, JavaScript and DOM API.
 
@@ -31,6 +33,9 @@ This is an application to take a timed quiz on JavaScript fundamentals and JQuer
    - Multiple Quizes added.
    - Minimum customization done.
    - Application added to https://smaji08.github.io/Bootstrap-Portfolio/
+   
+![quiz](https://user-images.githubusercontent.com/54964461/73009094-da6f1080-3ddd-11ea-9bb4-eeb461f00416.png)
+
 
 ### My Experience
 My approach to this application was first to print the array of questions and corresponding answer choices. I used the carousel method for that naavigating one from next. The next was to check the user selected answer with the correct answer stored in the question array. I achieved this creating data-index for question and matching the same with the question in the array which was a challenge initially and adding click event for the user choice and matching it with the user answer.
